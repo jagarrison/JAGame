@@ -1,0 +1,126 @@
+Asset Location,Asset IP Address,Asset Alternate IPv4 Addresses,Asset Names,Asset Risk Score,Asset OS Name,Vulnerability Title,Vulnerability PCI Compliance Status,Vulnerability CVSS Score,Vulnerability CVSSv3 Score,Vulnerability Description,Vulnerability ID,Service Port,Vulnerability Solution,Vulnerability Proof,Vulnerability Published Date,Vulnerable Since,Vulnerability Age,Vulnerability CVE IDs,Vulnerability CVE URLs
+,10.112.53.17,,WCCMR7S01,"2,940",Microsoft Windows Server 2019 Datacenter Edition,NetBIOS NBSTAT Traffic Amplification,Pass,0.0,0.0,"A NetBIOS NBSTAT query will obtain the status from a NetBIOS-speaking endpoint, which will include any names that the endpoint is known to respond to as well as the device's MAC address for that endpoint. A NBSTAT response is roughly 3x the size of the request, and because NetBIOS utilizes UDP, this can be used to conduct traffic amplification attacks against other assets, typically in the form of distributed reflected denial of service (DRDoS) attacks.",netbios-nbstat-amplification,137,"Restrict access to NetBIOS
+
+ NetBIOS can be important to the proper functioning of a Windows network depending on the design. Restrict access to the NetBIOS service to only trusted assets.","* Running CIFS Name Service service
+
+ * Configuration item advertised-name-count set to '3' matched",2014-02-09,2022-08-25,5 Days,,
+,10.112.53.17,,WCCMR7S01,"2,940",Microsoft Windows Server 2019 Datacenter Edition,TLS/SSL Server is enabling the BEAST attack,Fail,4.3,0.0,"The SSL protocol, as used in certain configurations of Microsoft Windows and browsers such as Microsoft Internet Explorer, Mozilla Firefox, Google Chrome, Opera (and other products negotiating SSL connections) encrypts data by using CBC mode with chained initialization vectors. This potentially allows man-in-the-middle attackers to obtain plaintext HTTP headers via a blockwise chosen-boundary attack (BCBA) on an HTTPS session, in conjunction with JavaScript code that uses (1) the HTML5 WebSocket API, (2) the Java URLConnection API, or (3) the Silverlight WebClient API, aka a ""BEAST"" attack. By supporting the affected protocols and ciphers, the server is enabling the clients in to being exploited.",ssl-cve-2011-3389-beast,3389,"Disable SSLv2, SSLv3, and TLS 1.0. The best solution is to only have TLS 1.2 enabled
+
+
+ There is no server-side mitigation available against the BEAST attack. The only option is to disable the affected protocols (SSLv3 and TLS 1.0). The only fully safe configuration is to use Authenticated Encryption with Associated Data (AEAD), e.g. AES-GCM, AES-CCM in TLS 1.2.","* 
+      Negotiated with the following insecure cipher suites: 
+    * TLS 1.0 ciphers: 
+       * TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+
+       * TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+
+       * TLS_RSA_WITH_AES_128_CBC_SHA
+
+       * TLS_RSA_WITH_AES_256_CBC_SHA",2011-09-06,2022-08-25,5 Days,CVE-2011-3389,http://nvd.nist.gov/vuln/detail/CVE-2011-3389
+,10.112.53.17,,WCCMR7S01,"2,940",Microsoft Windows Server 2019 Datacenter Edition,TLS/SSL Server Supports The Use of Static Key Ciphers,Pass,2.6,0.0,"The server is configured to support ciphers known as static key ciphers. These ciphers don't support ""Forward Secrecy"". In the new specification for HTTP/2, these ciphers have been blacklisted.",ssl-static-key-ciphers,3389,"Disable TLS/SSL support for static key cipher suites
+
+
+Configure the server to disable support for static key cipher suites.
+
+For Microsoft IIS web servers, see Microsoft Knowledgebase article  245030 (http://support.microsoft.com/kb/245030/)  for instructions on disabling static key cipher suites. 
+
+The following recommended configuration provides a higher level of security. This configuration is compatible with Firefox 27, Chrome 22, IE 11, Opera 14 and Safari 7. SSLv2, SSLv3, and TLSv1 protocols are not recommended in this configuration. Instead, use TLSv1.1 and TLSv1.2 protocols.
+
+Refer to your server vendor documentation to apply the recommended cipher configuration:
+
+ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK","* 
+      Negotiated with the following insecure cipher suites: 
+    * TLS 1.0 ciphers: 
+       * TLS_RSA_WITH_AES_128_CBC_SHA
+
+       * TLS_RSA_WITH_AES_256_CBC_SHA
+
+
+    * TLS 1.1 ciphers: 
+       * TLS_RSA_WITH_AES_128_CBC_SHA
+
+       * TLS_RSA_WITH_AES_256_CBC_SHA
+
+
+    * TLS 1.2 ciphers: 
+       * TLS_RSA_WITH_AES_128_CBC_SHA
+
+       * TLS_RSA_WITH_AES_128_CBC_SHA256
+
+       * TLS_RSA_WITH_AES_128_GCM_SHA256
+
+       * TLS_RSA_WITH_AES_256_CBC_SHA
+
+       * TLS_RSA_WITH_AES_256_CBC_SHA256
+
+       * TLS_RSA_WITH_AES_256_GCM_SHA384",2015-02-01,2022-08-25,5 Days,,
+,10.112.53.17,,WCCMR7S01,"2,940",Microsoft Windows Server 2019 Datacenter Edition,TLS Server Supports TLS version 1.1,Pass,2.6,0.0,"The PCI (Payment Card Industry) Data Security Standard requires a minimum of TLS v1.1 and recommends TLS v1.2. In addition, FIPS 140-2 standard requires a minimum of TLS v1.1 and recommends TLS v1.2.",tlsv1_1-enabled,3389,"Disable insecure TLS/SSL protocol support
+
+
+Configure the server to require clients to use TLS version 1.2 using Authenticated Encryption with Associated Data (AEAD) capable ciphers.",Successfully connected over TLSv1.1,2014-10-14,2022-08-25,5 Days,,
+,10.112.53.17,,WCCMR7S01,"2,940",Microsoft Windows Server 2019 Datacenter Edition,TLS Server Supports TLS version 1.0,Fail,4.3,0.0,"The PCI (Payment Card Industry) Data Security Standard requires a minimum of TLS v1.1 and recommends TLS v1.2. In addition, FIPS 140-2 standard requires a minimum of TLS v1.1 and recommends TLS v1.2.",tlsv1_0-enabled,3389,"Disable insecure TLS/SSL protocol support
+
+
+Configure the server to require clients to use TLS version 1.2 using Authenticated Encryption with Associated Data (AEAD) capable ciphers.",Successfully connected over TLSv1.0,2014-10-14,2022-08-25,5 Days,,
+,10.112.53.17,,WCCMR7S01,"2,940",Microsoft Windows Server 2019 Datacenter Edition,Microsoft Windows Defender Elevation of Privilege Vulnerability (CVE-2020-1170),Fail,7.2,7.8,"An elevation of privilege vulnerability exists in Windows Defender that leads arbitrary file deletion on the system.To exploit the vulnerability, an attacker would first have to log on to the system, aka 'Microsoft Windows Defender Elevation of Privilege Vulnerability'. This CVE ID is unique from CVE-2020-1163.",windows-defender-cve-2020-1170,0,"Upgrade Microsoft Defender to the latest version.
+
+
+Verify that the latest version of the Microsoft Malware Protection Engine and definition updates are being actively downloaded and installed for their Microsoft antimalware products. For more information on how to verify the version number for the Microsoft Malware Protection Engine that your software is currently using, see the section Verifying Update Installation in Microsoft Knowledge Base Article 2510781 https://support.microsoft.com/kb/2510781","Vulnerable OS: Microsoft Windows Server 2019 Datacenter Edition 1809
+
+
+Based on the following 2 results:
+ * 
+      
+      
+    * HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
+       * DisableAntiSpyware - contains 0
+
+
+
+
+
+ * 
+      
+      Based on the following 2 results:
+    * 
+            
+       * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender
+          * InstallLocation - value does exist and is of type REG_SZ
+
+
+
+
+    * 
+            
+            C:\Program Files\Windows Defender\MpCmdRun.exe has version 4.18.1807.18075",2020-06-09,2022-08-30,0 Days,CVE-2020-1170,http://nvd.nist.gov/vuln/detail/CVE-2020-1170
+,10.112.53.17,,WCCMR7S01,"2,940",Microsoft Windows Server 2019 Datacenter Edition,Microsoft Windows Defender Elevation of Privilege Vulnerability (CVE-2020-1163),Fail,7.2,7.8,"An elevation of privilege vulnerability exists in Windows Defender that leads arbitrary file deletion on the system.To exploit the vulnerability, an attacker would first have to log on to the system, aka 'Microsoft Windows Defender Elevation of Privilege Vulnerability'. This CVE ID is unique from CVE-2020-1170.",windows-defender-cve-2020-1163,0,"Upgrade Microsoft Defender to the latest version.
+
+
+Verify that the latest version of the Microsoft Malware Protection Engine and definition updates are being actively downloaded and installed for their Microsoft antimalware products. For more information on how to verify the version number for the Microsoft Malware Protection Engine that your software is currently using, see the section Verifying Update Installation in Microsoft Knowledge Base Article 2510781 https://support.microsoft.com/kb/2510781","Vulnerable OS: Microsoft Windows Server 2019 Datacenter Edition 1809
+
+
+Based on the following 2 results:
+ * 
+      
+      
+    * HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
+       * DisableAntiSpyware - contains 0
+
+
+
+
+
+ * 
+      
+      Based on the following 2 results:
+    * 
+            
+       * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender
+          * InstallLocation - value does exist and is of type REG_SZ
+
+
+
+
+    * 
+            
+            C:\Program Files\Windows Defender\MpCmdRun.exe has version 4.18.1807.18075",2020-06-09,2022-08-30,0 Days,CVE-2020-1163,http://nvd.nist.gov/vuln/detail/CVE-2020-1163
