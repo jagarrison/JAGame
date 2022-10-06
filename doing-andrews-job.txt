@@ -1,5 +1,0 @@
-dsacls "CN=AdminSDHolder,CN=System,DC=corp,DC=coop,DC=org" /G "corp\svcPassstateLDAPP:CA;Reset Password" > c:\temp\dsacls-run-corp.txt
-#
-dsacls "CN=AdminSDHolder,CN=System,DC=coop,DC=org" /G "coop\svcSSPRpwdP:CA;Reset Password" > c:\temp\dsacls-run-corp.txt
-
-dsacls "CN=AdminSDHolder,CN=System,DC=eservices,DC=coop,DC=org" /G "eservices\svcSSPRpwdP:CA;Reset Password" > c:\temp\dsacls-run-corp.txt
